@@ -34,10 +34,27 @@ namespace Assistt.API.Controllers
         }
 
 
+        [HttpGet]
+        public async Task<IActionResult> GetAll([FromQuery] string? search)
+        {
+                var query = new GetAllProductsQuery
+                {
+                    Search = search };
+
+                var result = await _mediator.Send(query);
+                return Ok(result);
+        }
+
+
         //[HttpGet]
-        //public async Task<IActionResult> GetAll()
+        //public async Task<IActionResult> GetAllWithPagination([FromQuery] int page, [FromQuery] int pageSize)
         //{
-        //    var query = new GetAllProductsQuery();
+        //    var query = new GetAllProductsWithPaginationQuery
+        //    {
+        //        Page = page,
+        //        PageSize = pageSize
+
+        //    };
 
         //    var result = await _mediator.Send(query);
 
@@ -45,20 +62,8 @@ namespace Assistt.API.Controllers
         //}
 
 
-        [HttpGet]
-        public async Task<IActionResult> GetAllWithPagination([FromQuery] int page, [FromQuery] int pageSize)
-        {
-            var query = new GetAllProductsWithPaginationQuery
-            {
-                Page = page,
-                PageSize = pageSize
-          
-            };
 
-            var result = await _mediator.Send(query);
 
-            return Ok(result);
-        }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
@@ -67,6 +72,17 @@ namespace Assistt.API.Controllers
             {
                 Id = id
             };
+
+            var result = await _mediator.Send(query);
+
+            return Ok(result);
+        }
+
+
+        [HttpGet("GetAllProductsWithCategory")]
+        public async Task<IActionResult> GetAllProductsWithCategory()
+        {
+            var query = new GetAllProductsWithCategoryQuery();
 
             var result = await _mediator.Send(query);
 

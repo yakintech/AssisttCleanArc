@@ -14,10 +14,5 @@ namespace Assistt.Infrastructure.Repositories
         {
         }
 
-        public override List<Product> GetAll()
-        {
-            //diger operasyonlar
-            return base.GetAll();
-        }
     }
 }

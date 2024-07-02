@@ -10,7 +10,7 @@ namespace Assistt.Application.Queries
 {
     public class GetAllProductsQuery : IRequest<List<GetAllProductsDto>>
     {
-
+        public string Search { get; set; }
     }
 
     public class GetProductByIdQuery : IRequest<GetProductByIdResponseDto>
@@ -18,11 +18,17 @@ namespace Assistt.Application.Queries
         public int Id { get; set; }
     }
 
-
-
     public class GetAllProductsWithPaginationQuery : IRequest<List<GetAllProductsDto>>
     {
         public int Page { get; set; }
         public int PageSize { get; set; }
     }
+
+
+    public class GetAllProductsWithCategoryQuery : IRequest<List<GetAllProductsWithCategoryDto>>
+    {
+
+    }
+
+
 }

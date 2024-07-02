@@ -9,10 +9,14 @@ namespace Assistt.Infrastructure.Repositories
 {
     public interface IBaseRepository<T> where T : BaseEntity
     {
-        List<T> GetAll();
+        IQueryable<T> GetAll();
         IQueryable<T> GetAllWithPagination(int page, int pageSize);
         T GetById(int id);
         void Create(T entity);
         void Delete(T entity);
+
+        List<T> GetAllWithQuery(Func<T, bool> query);
+
+        IQueryable<T> GetAllWithIncludes(params string[] includes);
     }
 }

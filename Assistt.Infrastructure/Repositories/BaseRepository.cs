@@ -31,9 +31,9 @@ namespace Assistt.Infrastructure.Repositories
             entity.IsDeleted = true;
         }
 
-        public virtual List<T> GetAll()
+        public virtual IQueryable<T> GetAll()
         {
-           var result = dbSet.Where(x => x.IsDeleted == false).ToList();
+           var result = dbSet.Where(x => x.IsDeleted == false);
            return result;
         }
 
@@ -48,6 +48,25 @@ namespace Assistt.Infrastructure.Repositories
             var result = dbSet.Where(x => x.IsDeleted == false).Skip((page - 1) * pageSize).Take(pageSize);
             return result;
         }
+
+
+        public IQueryable<T> GetAllWithIncludes(params string[] includes)
+        {
+            var query = dbSet.Where(x => x.IsDeleted == false).AsQueryable();
+            foreach (var include in includes)
+            {
+                query = query.Include(include);
+            }
+            return query;
+        }
+
+
+        public List<T> GetAllWithQuery(Func<T, bool> query)
+        {
+            var result = dbSet.Where(x => x.IsDeleted == false).Where(query).ToList();
+            return result;
+        }
+
 
     }
 }

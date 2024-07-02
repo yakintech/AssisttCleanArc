@@ -28,7 +28,24 @@ namespace Assistt.Application.QueriesHandlers
         {
             var products =  unitOfWork.Products.GetAll();
 
-            var result = _mapper.Map<List<GetAllProductsDto>>(products);
+
+            if(request.Search != null)
+            {
+                products = products.Where(x => x.Name.Contains(request.Search));
+            }
+
+            //var result = _mapper.Map<List<GetAllProductsDto>>(products);
+
+
+            var result = new List<GetAllProductsDto>();
+
+           result = products.Select(x => new GetAllProductsDto
+           {
+                Id = x.Id,
+                Name = x.Name,
+                AddDate = x.AddDate
+            }).ToList();
+
             return result;
         }
     }
@@ -54,7 +71,6 @@ namespace Assistt.Application.QueriesHandlers
         }
     }
 
-
     public class GetPRoductsWithPaginationQueryHandler : IRequestHandler<GetAllProductsWithPaginationQuery, List<GetAllProductsDto>>
     {
         private readonly IUnitOfWork unitOfWork;
@@ -74,4 +90,40 @@ namespace Assistt.Application.QueriesHandlers
             return result;
         }
     }
+
+
+    public class GetAllProductsWithCategoryQueryHandler : IRequestHandler<GetAllProductsWithCategoryQuery, List<GetAllProductsWithCategoryDto>>
+    {
+        private readonly IUnitOfWork unitOfWork;
+        private readonly IMapper _mapper;
+
+        public GetAllProductsWithCategoryQueryHandler(IUnitOfWork unitOfWork, IMapper mapper)
+        {
+            this.unitOfWork = unitOfWork;
+            _mapper = mapper;
+        }
+
+        public async Task<List<GetAllProductsWithCategoryDto>> Handle(GetAllProductsWithCategoryQuery request, CancellationToken cancellationToken)
+        {
+            var products = unitOfWork.Products.GetAllWithIncludes("Category");
+
+            var result = new List<GetAllProductsWithCategoryDto>();
+
+            foreach (var product in products)
+            {
+                var productDto = new GetAllProductsWithCategoryDto
+                {
+                    Id = product.Id,
+                    Name = product.Name,
+                    CategoryName = product.Category?.Name
+                };
+
+                result.Add(productDto);
+            }
+            return result;
+        }
+    }
+
+
+
 }
