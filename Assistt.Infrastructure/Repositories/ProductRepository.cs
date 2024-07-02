@@ -8,30 +8,16 @@ using System.Threading.Tasks;
 
 namespace Assistt.Infrastructure.Repositories
 {
-    public class ProductRepository : IProductRepository
+    public class ProductRepository : BaseRepository<Product>, IProductRepository
     {
-
-        private readonly AssisttContext _context;
-
-        public ProductRepository(AssisttContext context)
+        public ProductRepository(AssisttContext context) : base(context)
         {
-           _context = context;
         }
 
-        public void CreateProduct(Product product)
+        public override List<Product> GetAll()
         {
-           _context.Products.Add(product);
-            _context.SaveChanges();
-        }
-
-        public Product GetProductById(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public List<Product> GetProducts()
-        {
-            throw new NotImplementedException();
+            //diger operasyonlar
+            return base.GetAll();
         }
     }
 }

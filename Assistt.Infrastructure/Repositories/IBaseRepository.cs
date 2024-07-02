@@ -7,8 +7,11 @@ using System.Threading.Tasks;
 
 namespace Assistt.Infrastructure.Repositories
 {
-    public interface IProductRepository : IBaseRepository<Product>
+    public interface IBaseRepository<T> where T : BaseEntity
     {
-
+        List<T> GetAll();
+        T GetById(int id);
+        void Create(T entity);
+        void Delete(T entity);
     }
 }

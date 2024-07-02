@@ -7,8 +7,7 @@ using System.Threading.Tasks;
 
 namespace Assistt.Infrastructure.Repositories
 {
-    public interface IProductRepository : IBaseRepository<Product>
+    public interface ICategoryRepository : IBaseRepository<Category>
     {
-
     }
 }

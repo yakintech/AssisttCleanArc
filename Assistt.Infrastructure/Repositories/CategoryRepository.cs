@@ -1,4 +1,5 @@
 ﻿using Assistt.Domain.Models;
+using Assistt.Infrastructure.EF;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,8 +8,10 @@ using System.Threading.Tasks;
 
 namespace Assistt.Infrastructure.Repositories
 {
-    public interface IProductRepository : IBaseRepository<Product>
+    public class CategoryRepository : BaseRepository<Category>, ICategoryRepository
     {
-
+        public CategoryRepository(AssisttContext context) : base(context)
+        {
+        }
     }
 }
