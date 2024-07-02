@@ -43,5 +43,11 @@ namespace Assistt.Infrastructure.Repositories
             return result;
         }
 
+        public IQueryable<T> GetAllWithPagination(int page, int pageSize)
+        {
+            var result = dbSet.Where(x => x.IsDeleted == false).Skip((page - 1) * pageSize).Take(pageSize);
+            return result;
+        }
+
     }
 }

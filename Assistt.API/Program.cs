@@ -1,5 +1,6 @@
 using Assistt.Application.Commands;
 using Assistt.Application.DTO;
+using Assistt.Application.Mapping;
 using Assistt.Application.Validators.Products;
 using Assistt.Infrastructure.EF;
 using Assistt.Infrastructure.Repositories;
@@ -32,6 +33,8 @@ builder.Services.AddScoped<IValidator<CreateProductDto>, CreateProductValidator>
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 builder.Services.AddFluentValidationAutoValidation();
+
+builder.Services.AddAutoMapper(typeof(GetAllProductsProfile).Assembly);
 
 
 var app = builder.Build();

@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Assistt.Application.DTO;
 using Assistt.Application.Commands;
 using MediatR;
+using Assistt.Application.Queries;
 
 namespace Assistt.API.Controllers
 {
@@ -31,5 +32,48 @@ namespace Assistt.API.Controllers
 
             return Ok();
         }
+
+
+        //[HttpGet]
+        //public async Task<IActionResult> GetAll()
+        //{
+        //    var query = new GetAllProductsQuery();
+
+        //    var result = await _mediator.Send(query);
+
+        //    return Ok(result);
+        //}
+
+
+        [HttpGet]
+        public async Task<IActionResult> GetAllWithPagination([FromQuery] int page, [FromQuery] int pageSize)
+        {
+            var query = new GetAllProductsWithPaginationQuery
+            {
+                Page = page,
+                PageSize = pageSize
+          
+            };
+
+            var result = await _mediator.Send(query);
+
+            return Ok(result);
+        }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetById(int id)
+        {
+            var query = new GetProductByIdQuery
+            {
+                Id = id
+            };
+
+            var result = await _mediator.Send(query);
+
+            return Ok(result);
+        }
+
+
+
     }
 }
