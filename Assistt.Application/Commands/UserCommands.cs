@@ -9,7 +9,7 @@ namespace Assistt.Application.Commands
 {
     public class UserCommands
     {
-        public class UserLogin : IRequest<bool>
+        public class UserLogin : IRequest<string>
         {
             public string EMail { get; set; }
             public string Password { get; set; }

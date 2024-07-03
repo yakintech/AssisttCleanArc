@@ -1,4 +1,5 @@
 ﻿using Assistt.Application.Commands;
+using Assistt.Application.Services.Auth;
 using Assistt.Infrastructure.UnitOfWork;
 using MediatR;
 using System;
@@ -9,20 +10,33 @@ using System.Threading.Tasks;
 
 namespace Assistt.Application.CommandHandlers
 {
-    public class UserCommandHandlers : IRequestHandler<UserCommands.UserLogin, bool>
+    public class UserCommandHandlers : IRequestHandler<UserCommands.UserLogin, string>
     {
         private readonly IUnitOfWork _unitOfWork;
 
-        public UserCommandHandlers(IUnitOfWork unitOfWork)
+        private readonly IAuthenticationService _authenticationService;
+
+
+
+        public UserCommandHandlers(IUnitOfWork unitOfWork, IAuthenticationService authenticationService)
         {
             _unitOfWork = unitOfWork;
+            _authenticationService = authenticationService;
         }
 
-        public Task<bool> Handle(UserCommands.UserLogin request, CancellationToken cancellationToken)
+        public Task<string> Handle(UserCommands.UserLogin request, CancellationToken cancellationToken)
         {
           var userControl = _unitOfWork.Users.Any(x => x.Email == request.EMail && x.Password == request.Password);
 
-            return Task.FromResult(userControl);
+            if (userControl)
+            {
+                var token = _authenticationService.GenerateToken(request.EMail);
+                return Task.FromResult(token);
+            }
+            else
+            {
+                throw new Exception("Kullanıcı adı veya şifre hatalı");
+            }
            
         }
     }

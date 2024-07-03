@@ -28,7 +28,7 @@ namespace Assistt.Application.Services.Auth
                 {
                     new System.Security.Claims.Claim("email", email)
                 }),
-                Expires = DateTime.UtcNow.AddHours(1),
+                Expires = DateTime.Now.AddMinutes(1),
                 SigningCredentials = credentials,
                 Issuer = "Asist",
                 Audience = "Asist"

@@ -1,8 +1,10 @@
 using Assistt.Application.Commands;
 using Assistt.Application.DTO;
 using Assistt.Application.Mapping;
+using Assistt.Application.Services.Auth;
 using Assistt.Application.Validators.Products;
 using Assistt.Infrastructure.EF;
+using Assistt.Infrastructure.Extensions;
 using Assistt.Infrastructure.Repositories;
 using Assistt.Infrastructure.UnitOfWork;
 using FluentValidation;
@@ -26,12 +28,16 @@ builder.Services.AddDbContext<AssisttContext>();
 builder.Services.AddMediatR(opt =>
 {
     opt.RegisterServicesFromAssemblyContaining<ProductCommands.CreateProduct>();
+    opt.RegisterServicesFromAssemblyContaining<UserCommands.UserLogin>();
 });
 
-builder.Services.AddScoped<IProductRepository, ProductRepository>();
-builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+
+builder.Services.AddRepositories();
 
 builder.Services.AddScoped<IValidator<CreateProductDto>, CreateProductValidator>();
+
+
+builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
 
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 

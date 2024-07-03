@@ -4,9 +4,12 @@ using Assistt.Application.DTO;
 using Assistt.Application.Commands;
 using MediatR;
 using Assistt.Application.Queries;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Assistt.API.Controllers
 {
+
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class ProductsController : ControllerBase
