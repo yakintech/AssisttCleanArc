@@ -7,6 +7,9 @@ using Assistt.Infrastructure.Repositories;
 using Assistt.Infrastructure.UnitOfWork;
 using FluentValidation;
 using FluentValidation.AspNetCore;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -36,6 +39,28 @@ builder.Services.AddFluentValidationAutoValidation();
 
 builder.Services.AddAutoMapper(typeof(GetAllProductsProfile).Assembly);
 
+
+
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+})
+.AddJwtBearer(options =>
+{
+    options.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuer = true,
+        ValidateAudience = true,
+        ValidateLifetime = true,
+        ValidateIssuerSigningKey = true,
+        ValidIssuer = "Asist",
+        ValidAudience = "Asist",
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("ironmaidenpentagramslipknotironmaidenpentagramslipknot"))
+    };
+});
+
+builder.Services.AddAuthorization();
 
 var app = builder.Build();
 

@@ -1,0 +1,4 @@
+https://owasp.org/API-Security/editions/2023/en/0x11-t10/
+
+https://assets.ctfassets.net/2ntc334xpx65/o5J4X472PQUI4ai6cAcqg/13a2611de03b2c8edbd09c3ca14ae86b/jwt-handbook-v0_14_1.pdf?mem=button&mkt_tok=ODU1LVFBSC02OTkAAAGQl-I9cH40K-ATWZtttfiU4tsT-INojc0ib7VVtOYzvVfaY_8GtOFdjlXmsRK02A5gAcfno4e0l38leuoKiuKfcQW6Eki3FnntCei-k5-0ExtYwLj_bw
+

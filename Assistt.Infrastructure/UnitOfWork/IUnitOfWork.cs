@@ -10,6 +10,7 @@ namespace Assistt.Infrastructure.UnitOfWork
     public interface IUnitOfWork : IDisposable
     {
         IProductRepository Products { get; }
+        IUserRepository Users { get; }
         void Commit();
     }
 }

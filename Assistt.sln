@@ -3,13 +3,18 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34330.188
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assistt.Domain", "Assistt.Domain\Assistt.Domain.csproj", "{C6AE7056-1984-4325-8B88-89D0E10E3607}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Assistt.Domain", "Assistt.Domain\Assistt.Domain.csproj", "{C6AE7056-1984-4325-8B88-89D0E10E3607}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assistt.Infrastructure", "Assistt.Infrastructure\Assistt.Infrastructure.csproj", "{62435892-5B3E-4287-84F7-07B88ACAB9C8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Assistt.Infrastructure", "Assistt.Infrastructure\Assistt.Infrastructure.csproj", "{62435892-5B3E-4287-84F7-07B88ACAB9C8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assistt.Application", "Assistt.Application\Assistt.Application.csproj", "{0F32BD81-019E-4B97-980F-4E910207B91E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Assistt.Application", "Assistt.Application\Assistt.Application.csproj", "{0F32BD81-019E-4B97-980F-4E910207B91E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assistt.API", "Assistt.API\Assistt.API.csproj", "{F6B8F4AA-24A0-468F-8082-839CF50D70D5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Assistt.API", "Assistt.API\Assistt.API.csproj", "{F6B8F4AA-24A0-468F-8082-839CF50D70D5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{93828CE6-5D01-452A-BCC1-88CFDCEE109B}"
+	ProjectSection(SolutionItems) = preProject
+		Kaynaklar.txt = Kaynaklar.txt
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

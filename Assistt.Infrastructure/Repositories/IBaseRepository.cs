@@ -17,6 +17,8 @@ namespace Assistt.Infrastructure.Repositories
 
         List<T> GetAllWithQuery(Func<T, bool> query);
 
+        bool Any(Func<T, bool> query);
+
         IQueryable<T> GetAllWithIncludes(params string[] includes);
     }
 }

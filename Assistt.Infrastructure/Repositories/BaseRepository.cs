@@ -67,6 +67,12 @@ namespace Assistt.Infrastructure.Repositories
             return result;
         }
 
+        public bool Any(Func<T, bool> query)
+        {
+            var result = dbSet.Where(x => x.IsDeleted == false).Any(query);
+            return result;
+        }
+
 
     }
 }
