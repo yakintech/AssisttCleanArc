@@ -1,3 +1,4 @@
+using Assistt.API.Middleware;
 using Assistt.Application.Commands;
 using Assistt.Application.DTO;
 using Assistt.Application.Mapping;
@@ -31,6 +32,7 @@ builder.Services.AddMediatR(opt =>
     opt.RegisterServicesFromAssemblyContaining<UserCommands.UserLogin>();
 });
 
+builder.Services.AddHttpContextAccessor();
 
 builder.Services.AddRepositories();
 
@@ -44,6 +46,7 @@ builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddFluentValidationAutoValidation();
 
 builder.Services.AddAutoMapper(typeof(GetAllProductsProfile).Assembly);
+
 
 
 
@@ -79,6 +82,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseMiddleware<ExceptionMiddleware>();
 
 app.UseAuthorization();
 

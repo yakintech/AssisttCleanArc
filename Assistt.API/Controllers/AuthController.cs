@@ -1,4 +1,5 @@
 ﻿using Assistt.Application.Commands;
+using Assistt.Application.DTO;
 using Assistt.Application.Services.Auth;
 using MediatR;
 using Microsoft.AspNetCore.Http;
@@ -32,16 +33,11 @@ namespace Assistt.API.Controllers
 
         [HttpPost]
         [Route("refresh-token")]
-        public async Task<IActionResult> RefreshToken(Sample data)
+        public async Task<IActionResult> RefreshToken(RefreshTokenRequestDto data)
         {
-            var accessToken = _authenticationService.RefreshTokenAsync(data.token);
+            var accessToken = _authenticationService.RefreshTokenAsync(data.Token);
             return Ok(new { token = accessToken });
         }
     }
 
-
-    public class Sample
-    {
-        public string token { get; set; }
-    }
 }

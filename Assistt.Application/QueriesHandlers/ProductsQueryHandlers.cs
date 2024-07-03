@@ -1,8 +1,10 @@
 ﻿using Assistt.Application.DTO;
+using Assistt.Application.Exceptions;
 using Assistt.Application.Queries;
 using Assistt.Infrastructure.UnitOfWork;
 using AutoMapper;
 using MediatR;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,7 +19,7 @@ namespace Assistt.Application.QueriesHandlers
         private readonly IUnitOfWork unitOfWork;
         private readonly IMapper _mapper;
 
-        public GetAllProductsQueryHandler(IUnitOfWork unitOfWork, IMapper mapper)
+        public GetAllProductsQueryHandler(IUnitOfWork unitOfWork, IMapper mapper )
         {
             this.unitOfWork = unitOfWork;
             _mapper = mapper;
@@ -61,6 +63,11 @@ namespace Assistt.Application.QueriesHandlers
         public async Task<GetProductByIdResponseDto> Handle(GetProductByIdQuery request, CancellationToken cancellationToken)
         {
             var product = unitOfWork.Products.GetById(request.Id);
+
+            if(product == null)
+            {
+                throw new DataNotFoundException("Product not found");
+            }
 
             return new GetProductByIdResponseDto
             {

@@ -5,6 +5,7 @@ using Assistt.Application.Commands;
 using MediatR;
 using Assistt.Application.Queries;
 using Microsoft.AspNetCore.Authorization;
+using Assistt.API.Filters;
 
 namespace Assistt.API.Controllers
 {
@@ -26,6 +27,7 @@ namespace Assistt.API.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(CreateProductDto model)
         {
+            
             var command = new ProductCommands.CreateProduct
             {
                 Name = model.Name
@@ -37,6 +39,7 @@ namespace Assistt.API.Controllers
         }
 
 
+        [ResponseHeaderFilter("data", "1")]
         [HttpGet]
         public async Task<IActionResult> GetAll([FromQuery] string? search)
         {

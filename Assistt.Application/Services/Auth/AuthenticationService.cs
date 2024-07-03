@@ -1,5 +1,6 @@
 ﻿using Assistt.Domain.Models;
 using Assistt.Infrastructure.UnitOfWork;
+using Microsoft.AspNetCore.Http;
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
@@ -13,6 +14,7 @@ namespace Assistt.Application.Services.Auth
     public class AuthenticationService : IAuthenticationService
     {
         private readonly IUnitOfWork _unitOfWork;
+
 
         public AuthenticationService(IUnitOfWork unitOfWork)
         {
@@ -36,7 +38,7 @@ namespace Assistt.Application.Services.Auth
                 {
                     new System.Security.Claims.Claim("email", email)
                 }),
-                Expires = DateTime.Now.AddMinutes(1),
+                Expires = DateTime.Now.AddMinutes(30),
                 SigningCredentials = credentials,
                 Issuer = "Asist",
                 Audience = "Asist"
