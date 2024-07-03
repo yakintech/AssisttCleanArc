@@ -14,19 +14,21 @@ namespace Assistt.Infrastructure.UnitOfWork
         private readonly IProductRepository _productRepository;
         private readonly ICategoryRepository _categoryRepository;
         private readonly IUserRepository _userRepository;
+        private readonly IRefreshTokenRepository _refreshTokenRepository;
 
-        public UnitOfWork(AssisttContext context, IProductRepository productRepository, ICategoryRepository categoryRepository, IUserRepository userRepository)
+        public UnitOfWork(AssisttContext context, IProductRepository productRepository, ICategoryRepository categoryRepository, IUserRepository userRepository, IRefreshTokenRepository refreshTokenRepository)
         {
             _context = context;
             _productRepository = productRepository;
             _categoryRepository = categoryRepository;
             _userRepository = userRepository;
+            _refreshTokenRepository = refreshTokenRepository;
         }
 
         public IProductRepository Products => _productRepository;
         public ICategoryRepository Categories => _categoryRepository;
-
         public IUserRepository Users => _userRepository;
+        public IRefreshTokenRepository RefreshTokens => _refreshTokenRepository;
 
         public void Commit()
         {

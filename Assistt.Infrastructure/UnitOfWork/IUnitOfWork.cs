@@ -11,6 +11,8 @@ namespace Assistt.Infrastructure.UnitOfWork
     {
         IProductRepository Products { get; }
         IUserRepository Users { get; }
+
+        IRefreshTokenRepository RefreshTokens { get; }
         void Commit();
     }
 }

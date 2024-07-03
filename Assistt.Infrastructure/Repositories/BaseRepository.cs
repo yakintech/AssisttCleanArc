@@ -20,6 +20,12 @@ namespace Assistt.Infrastructure.Repositories
             this.context = context;
             this.dbSet = context.Set<T>();
         }
+
+        public T FirstOrDefault(Func<T, bool> query)
+        {
+            var result = dbSet.Where(x => x.IsDeleted == false).FirstOrDefault(query);
+            return result;
+        }
         public void Create(T entity)
         {
             entity.AddDate = DateTime.Now;

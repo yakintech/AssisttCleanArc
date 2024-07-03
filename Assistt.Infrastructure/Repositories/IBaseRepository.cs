@@ -9,6 +9,8 @@ namespace Assistt.Infrastructure.Repositories
 {
     public interface IBaseRepository<T> where T : BaseEntity
     {
+
+        T FirstOrDefault(Func<T, bool> query);
         IQueryable<T> GetAll();
         IQueryable<T> GetAllWithPagination(int page, int pageSize);
         T GetById(int id);

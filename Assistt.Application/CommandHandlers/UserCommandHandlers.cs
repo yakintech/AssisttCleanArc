@@ -7,10 +7,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static Assistt.Application.Commands.UserCommands;
 
 namespace Assistt.Application.CommandHandlers
 {
-    public class UserCommandHandlers : IRequestHandler<UserCommands.UserLogin, string>
+    public class UserCommandHandlers : IRequestHandler<UserCommands.UserLogin, UserLoginResponse>
     {
         private readonly IUnitOfWork _unitOfWork;
 
@@ -24,14 +25,21 @@ namespace Assistt.Application.CommandHandlers
             _authenticationService = authenticationService;
         }
 
-        public Task<string> Handle(UserCommands.UserLogin request, CancellationToken cancellationToken)
+        public Task<UserLoginResponse> Handle(UserCommands.UserLogin request, CancellationToken cancellationToken)
         {
           var userControl = _unitOfWork.Users.Any(x => x.Email == request.EMail && x.Password == request.Password);
 
             if (userControl)
             {
-                var token = _authenticationService.GenerateToken(request.EMail);
-                return Task.FromResult(token);
+                var id = _unitOfWork.Users.FirstOrDefault(x => x.Email == request.EMail).Id;
+                var token = _authenticationService.GenerateAccessToken(request.EMail);
+                var result = new UserLoginResponse
+                {
+                    Token = token,
+                    UserId = id
+                };
+
+                return Task.FromResult(result);
             }
             else
             {
