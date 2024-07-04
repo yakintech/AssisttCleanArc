@@ -19,7 +19,20 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddControllers();
-    ;
+
+
+//allow coors 
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll",
+               builder =>
+               {
+            builder.AllowAnyOrigin()
+                   .AllowAnyMethod()
+                   .AllowAnyHeader();
+        });
+});
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -33,7 +46,6 @@ builder.Services.AddMediatR(opt =>
 });
 
 builder.Services.AddHttpContextAccessor();
-
 builder.Services.AddRepositories();
 
 builder.Services.AddScoped<IValidator<CreateProductDto>, CreateProductValidator>();
@@ -80,6 +92,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseCors("AllowAll");
 
 app.UseHttpsRedirection();
 

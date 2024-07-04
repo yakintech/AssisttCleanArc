@@ -27,7 +27,7 @@ namespace Assistt.API.Controllers
         {
             var token = await _mediator.Send(userLogin);
             var refreshToken = _authenticationService.GenerateRefreshTokenAsync(token.UserId);
-            return Ok(new { token = token.Token, refreshToken = refreshToken.Token});
+            return Ok(new { token = token.Token, refreshToken = refreshToken.Token });
         }
 
 
